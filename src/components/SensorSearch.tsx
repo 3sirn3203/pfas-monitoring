@@ -132,7 +132,15 @@ export default function SensorSearch() {
           {latestBySpecies.length > 0 ? (
             <div className="mt-2 grid grid-cols-3 gap-2">
               {latestBySpecies.map(x => (
-                <Metric key={x.species_id} title={x.species_id} unit={x.unit} value={x.value} threshold={x.threshold} ok={x.ok} />
+                <Metric
+                  key={x.species_id}
+                  title={x.species_id}
+                  unit={x.unit}
+                  value={x.value}
+                  threshold={x.threshold}
+                  ok={x.ok}
+                  ts={x.ts}
+                />
               ))}
             </div>
           ) : (
@@ -144,11 +152,14 @@ export default function SensorSearch() {
   );
 }
 
-function Metric({ title, unit, value, threshold, ok }: { title: string; unit: string; value: number; threshold?: number; ok?: boolean; }) {
+function Metric({ title, unit, value, threshold, ok, ts }: { title: string; unit: string; value: number; threshold?: number; ok?: boolean; ts?: string; }) {
   return (
     <div className="rounded-lg border bg-white px-3 py-2">
       <div className="text-xs text-slate-500">{title}</div>
       <div className="text-lg font-semibold">{value.toFixed(2)} <span className="text-xs font-normal text-slate-500">{unit}</span></div>
+      {ts && (
+        <div className="mt-1 text-[11px] text-slate-500">{new Date(ts).toLocaleString()}</div>
+      )}
       {threshold !== undefined && (
         <div className="mt-1 text-xs">
           기준치: {threshold} {unit}
