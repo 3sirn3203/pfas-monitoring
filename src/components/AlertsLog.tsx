@@ -2,6 +2,9 @@ import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import type { Alert } from "../types/db";
 import { MOCK_ALERTS } from "../mocks/alerts";
+import { MOCK_SENSORS } from "../mocks/sensors";
+import { MOCK_SITES } from "../mocks/sites";
+import { MOCK_PFAS_SPECIES } from "../mocks/pfassepcies";
 
 export default function AlertsLog() {
     const [openModal, setOpenModal] = useState(false);
@@ -19,6 +22,21 @@ export default function AlertsLog() {
     const labelRule = (rule: Alert["rule"]) =>
         rule === "threshold" ? "기준치 초과" : rule === "anomaly_ml" ? "이상치" : "급변";
 
+    // sensor id -> site name
+    const siteNameBySensorId = useMemo(() => {
+        const siteName = new Map(MOCK_SITES.map(s => [String(s.id), s.name]));
+        const m: Record<string, string> = {};
+        for (const s of MOCK_SENSORS) m[String(s.id)] = siteName.get(String(s.site_id)) ?? String(s.site_id);
+        return m;
+    }, []);
+
+    // species id -> code
+    const speciesCodeById = useMemo(() => {
+        const m: Record<string, string> = {};
+        for (const sp of MOCK_PFAS_SPECIES) m[String(sp.id)] = sp.code;
+        return m;
+    }, []);
+
     const Item = ({ a }: { a: Alert }) => (
         <li key={a.id as unknown as string} className={`rounded-xl border px-3 py-2 ${badgeByState(a.status)}`}>
             <div className="flex items-center justify-between gap-2">
@@ -27,7 +45,7 @@ export default function AlertsLog() {
                         {labelRule(a.rule)}
                     </span>
                     <span className="truncate font-medium">
-                        {String(a.species_id)} • 측정 {a.measured} (기준 {a.threshold})
+                        {siteNameBySensorId[String(a.sensor_id)]} • {speciesCodeById[String(a.species_id)] ?? String(a.species_id)} • 측정 {a.measured} (기준 {a.threshold})
                     </span>
                 </div>
                 <span className="ml-2 shrink-0 tabular-nums text-xs text-slate-500">{fmt(a.ts)}</span>

@@ -26,7 +26,7 @@ export const MOCK_STANDARDS: Standard[] = [
     {
         id: "ST-003" as any,
         org_id: "O-1002" as any,
-        species_id: "SP-003" as any,        // PFOS
+        species_id: "SP-001" as any,        // PFOS
         basis: "raw_water",
         unit: "ng/L",
         mcl: 200,                           // 예시값
@@ -36,7 +36,7 @@ export const MOCK_STANDARDS: Standard[] = [
     {
         id: "ST-004" as any,
         org_id: null,
-        species_id: "SP-004" as any,        // PFHxS
+        species_id: "SP-003" as any,        // PFHxS
         basis: "effluent",
         unit: "ng/L",
         mcl: 300,                           // 예시값

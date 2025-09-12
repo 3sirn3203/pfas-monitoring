@@ -4,6 +4,7 @@ import NavTabs from "./components/NavTabs";
 import Dashboard from "./routes/Dashboard";
 import DataAnalysis from "./routes/DataAnalysis";
 import UserManagement from "./routes/UserManagement";
+import Laboratory from "./routes/Laboratory";
 
 export default function App() {
     return (
@@ -23,6 +24,7 @@ export default function App() {
                 <Routes>
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/analysis" element={<DataAnalysis />} />
+                    <Route path="/laboratory" element={<Laboratory />} />
                     <Route path="/users" element={<UserManagement />} />
                 </Routes>
             </main>

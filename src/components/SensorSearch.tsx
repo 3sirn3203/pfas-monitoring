@@ -4,6 +4,7 @@ import { MOCK_SENSORS } from "../mocks/sensors";
 import { MOCK_MEASUREMENTS } from "../mocks/measurements";
 import { MOCK_SITES } from "../mocks/sites";
 import { MOCK_STANDARDS } from "../mocks/standards";
+import { MOCK_PFAS_SPECIES } from "../mocks/pfassepcies";
 
 type ViewSensor = {
   id: string;           // SensorId as string
@@ -45,6 +46,14 @@ export default function SensorSearch() {
     if (!selectedId) return null;
     return dataset.find(s => s.id === selectedId) ?? null;
   }, [selectedId, dataset]);
+
+  // species id -> code label
+  const codeById = useMemo(() => {
+    const m: Record<string, string> = {};
+    for (const sp of MOCK_PFAS_SPECIES) m[String(sp.id)] = sp.code;
+    return m;
+  }, []);
+  const labelOf = (id: string) => codeById[id] ?? id;
 
   // species별 우선 기준(음용수 > 기타) 선택
   const standardBySpecies = useMemo(() => {
@@ -134,7 +143,7 @@ export default function SensorSearch() {
               {latestBySpecies.map(x => (
                 <Metric
                   key={x.species_id}
-                  title={x.species_id}
+                  title={labelOf(x.species_id)}
                   unit={x.unit}
                   value={x.value}
                   threshold={x.threshold}

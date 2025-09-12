@@ -23,7 +23,12 @@ export default function NavTabs() {
                 데이터 분석
             </NavLink>
 
-            {/* TODO: Laboratory 결과 등록*/}
+            <NavLink
+                to="/laboratory"
+                className={({ isActive }) => `${base} ${isActive ? active : inactive}`}
+            >
+                실험실 등록
+            </NavLink>
 
             <NavLink
                 to="/users"
