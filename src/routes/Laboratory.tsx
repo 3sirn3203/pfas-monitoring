@@ -1,9 +1,16 @@
-export default function Laboratory() {
-  return (
-    <div className="rounded-2xl border bg-white p-6">
-      <h2 className="text-lg font-semibold">실험실 등록</h2>
-      <p className="mt-2 text-slate-600">작업 예정</p>
-    </div>
-  );
-}
+import LabRegister from "../components/LabRegister";
+import LabSearch from "../components/LabSearch";
 
+export default function Laboratory() {
+    return (
+        <div className="grid grid-cols-2 gap-6 h-full">
+            <div className="col-span-1">
+                <LabRegister />
+            </div>
+
+            <div className="col-span-1">
+                <LabSearch />
+            </div>
+        </div>
+    );
+}
