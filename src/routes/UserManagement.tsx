@@ -5,9 +5,9 @@ type User = {
 };
 
 const mockUsers: User[] = [
-    { id: "u001", name: "홍길동", role: "관리자" },
-    { id: "u002", name: "김PFAS", role: "연구자" },
-    { id: "u003", name: "박관제", role: "관제요원" },
+    { id: "u001", name: "김대영", role: "관리자" },
+    { id: "u002", name: "김우진", role: "연구자" },
+    { id: "u003", name: "이재용", role: "관제요원" },
 ];
 
 export default function UserManagement() {
